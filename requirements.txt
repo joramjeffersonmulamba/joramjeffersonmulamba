@@ -1,0 +1,11 @@
+streamlit
+awesome_streamlit
+pandas
+numpy
+pickle
+tensorflow
+joblib
+matplotlib.pyplot
+iio
+pydicom
+random
