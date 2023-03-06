@@ -15,6 +15,7 @@ import urllib.request
 import h5py
 
 @st.cache(allow_output_mutation=True)
+@st.cache(hash_funcs={h5py._hl.files.File: my_hash_func})
 def teachable_machine_classification(img_path, weights_file):
     image = Image.open(image_path)
     # Load the model
