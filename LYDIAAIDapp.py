@@ -42,7 +42,7 @@ def teachable_machine_classification(img, weights_file):
 
 
 # Load the data
-data = pd.read_csv("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/data.csv")
+data = pd.read_csv("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/data.csv?raw=true")
 
 # Define the app title
 title_text = "<span style='color: hotpink; font-size: 70px;'>L<span style='color: white; background-color: hotpink; border-radius: 5px; padding: 0px 5px;'>AID</span></span>"
@@ -81,7 +81,7 @@ def show_help():
 with st.expander("ℹ️ Help"):
     show_help()
 # Load the sample data from a CSV file
-data = pd.read_csv(r"C:\Users\jeffe\OneDrive\Desktop\MOM\data.csv")
+data = pd.read_csv("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/data.csv?raw=true")
 
 # Show the sample data in a table
 st.write("Sample of the Dataset that was used for training:")
@@ -227,7 +227,7 @@ if uploaded_file is not None:
 
 st.header("Breast Cancer Mammogram Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model3 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5")
+model3 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
 if uploaded_file3 is not None:
@@ -235,7 +235,7 @@ if uploaded_file3 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
     model3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is MALIGNANT")
@@ -248,7 +248,7 @@ if uploaded_file3 is not None:
 
 st.header("Breast Cancer Ultrasound Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5")
+model = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
 
 uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
 if uploaded_file1 is not None:
@@ -256,7 +256,7 @@ if uploaded_file1 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING......")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is NORMAL")
@@ -268,7 +268,7 @@ if uploaded_file1 is not None:
 
 st.header("Breast Cancer Histopathology Image Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model2 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5")
+model2 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
 
 uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
 if uploaded_file2 is not None:
@@ -276,7 +276,7 @@ if uploaded_file2 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
     model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is MALIGNANT")
