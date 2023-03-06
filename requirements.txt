@@ -4,7 +4,7 @@ matplotlib
 matplotlib-inline
 numpy
 pandas
-PIL
+pillow
 Image
 pydicom
 streamlit
