@@ -12,6 +12,7 @@ import io
 import tempfile
 import os
 import urllib.request
+import h5py
 
 @st.cache(allow_output_mutation=True)
 def teachable_machine_classification(img_path, weights_file):
