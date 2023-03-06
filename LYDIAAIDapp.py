@@ -16,24 +16,33 @@ import os
 import urllib.request
 import h5py
 
-def teachable_machine_classification(img, weights_url):
-    # Download the model weights file
-    weights_file = 'model.h5'
+def teachable_machine_classification(file, weights_url):
+    # Download and save the model weights
+    weights_file = 'keras_model.h5'
     urllib.request.urlretrieve(weights_url, weights_file)
-    
+
     # Load the model
     model = keras.models.load_model(weights_file)
 
-    # Preprocess the image
-    img = img_to_array(img)
-    img = img / 255.0
-    img = np.expand_dims(img, axis=0)
+    # Load the image from the UploadedFile object
+    img = load_img(file, target_size=(224, 224))
+
+    # Convert the image to a Numpy array
+    img_array = img_to_array(img)
+
+    # Expand the dimensions of the image to match the input shape of the model
+    img_array = np.expand_dims(img_array, axis=0)
+
+    # Preprocess the input image
+    img_array = keras.applications.mobilenet_v2.preprocess_input(img_array)
 
     # Make predictions
-    predictions = model.predict(img)
-    label = np.argmax(predictions, axis=1)[0]
-    return label
+    predictions = model.predict(img_array)
 
+    # Get the predicted class label
+    label = np.argmax(predictions)
+
+    return label
 
 
 # Load the data
