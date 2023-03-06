@@ -249,11 +249,11 @@ if uploaded_file is not None:
     st.write("Classifying...")
     label = teachable_machine_classification(uploaded_file, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true')
     if label == 0:
-        st.write("Prediction: Class A")
+        st.write("The scan is MALIGNANT")
     elif label == 1:
-        st.write("Prediction: Class B")
+        st.write("The scan is BENIGN")
     else:
-        st.write("Prediction: Class C")
+        st.write("UNRECOGNISED(Consult with a Medical Doctor)")
 
 
             
