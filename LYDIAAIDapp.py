@@ -10,6 +10,7 @@ from PIL import Image, ImageOps
 import numpy as np
 import requests
 import io
+import tempfile
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
