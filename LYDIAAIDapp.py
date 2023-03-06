@@ -18,7 +18,8 @@ import h5py
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
-    model = keras.models.load_model(weights_file)
+    weights_file = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
+    urllib.request.urlretrieve(weights_url, weights_file)
 
     # Create the array of the right shape to feed into the keras model
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
@@ -232,7 +233,7 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("Classifying...")
-    label = teachable_machine_classification(image, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true')
+    label = teachable_machine_classification(image, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true')
     if label == 0:
         st.write("The scan is normal")
     elif label == 1:
