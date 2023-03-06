@@ -227,7 +227,11 @@ if uploaded_file is not None:
 
 st.header("Breast Cancer Mammogram Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model3 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
+
+url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true"
+file_content = requests.get(url).content
+model3 = tf.keras.models.load_model(io.BytesIO(file_content))
+
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
 if uploaded_file3 is not None:
@@ -248,7 +252,11 @@ if uploaded_file3 is not None:
 
 st.header("Breast Cancer Ultrasound Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
+
+url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true"
+file_content1 = requests.get(url).content
+model = tf.keras.models.load_model(io.BytesIO(file_content1))
+
 
 uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
 if uploaded_file1 is not None:
@@ -268,7 +276,10 @@ if uploaded_file1 is not None:
 
 st.header("Breast Cancer Histopathology Image Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model2 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
+url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
+file_content2 = requests.get(url).content
+model2 = tf.keras.models.load_model(io.BytesIO(file_content2))
+
 
 uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
 if uploaded_file2 is not None:
