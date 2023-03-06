@@ -13,6 +13,8 @@ import tempfile
 import os
 import urllib.request
 import h5py
+from h5py import file
+
 
 
 def teachable_machine_classification(img_path, weights_file):
@@ -244,6 +246,10 @@ url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/maste
 urllib.request.urlretrieve(url, "keras_model3.h5")
 image_path = "/app/joramjeffersonmulamba/keras_model3.h5"
 
+
+file_path = File('keras_model3.h5', 'r')
+dir_path = '/app/joramjeffersonmulamba/keras_model3.h5'
+os.path.join(/app/joramjeffersonmulamba/keras_model3.h5))
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
 if uploaded_file3 is not None:
