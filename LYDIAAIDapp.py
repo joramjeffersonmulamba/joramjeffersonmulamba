@@ -11,6 +11,7 @@ import requests
 import io
 import tempfile
 import os
+import urllib.request
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
@@ -237,10 +238,7 @@ st.header("Breast Cancer Mammogram Diagnosis")
 st.text("Upload a scan for Diagnosis")
 
 url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true"
-response = requests.get(url)
-with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-    tmp_file.write(response.content)
-    model3 = tf.keras.models.load_model(tmp_file.name)
+urllib.request.urlretrieve(url, "keras_model3.h5")
 
 
 
