@@ -15,7 +15,8 @@ import os
 import urllib.request
 import h5py
 
-# Download the model weights file
+def teachable_machine_classification(img, weights_url):
+    # Download the model weights file
     weights_file = 'model.h5'
     urllib.request.urlretrieve(weights_url, weights_file)
     
