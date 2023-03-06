@@ -9,14 +9,15 @@ from PIL import Image, ImageOps
 import numpy as np
 import requests
 import io
+from io import BytesIO
 import tempfile
 import os
 import urllib.request
 import h5py
+from img_classification import teachable_machine_classification
 
 
-
-
+@st.cache(allow_output_mutation=True)
 def teachable_machine_classification(img_path, weights_file):
     image = Image.open(image_path)
     # Load the model
@@ -238,85 +239,22 @@ if uploaded_file is not None:
 
 
 
-
-st.header("Breast Cancer Mammogram Diagnosis")
-st.text("Upload a scan for Diagnosis")
-
-url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true"
-urllib.request.urlretrieve(url, "keras_model3.h5")
-image_path = "/app/joramjeffersonmulamba/keras_model3.h5"
-
-
-
-
-uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
-if uploaded_file3 is not None:
-    image = Image.open(uploaded_file3)
-    st.image(image, caption='Uploaded Scan.', use_column_width=True)
-    st.write("")
-    st.write("DIAGNOSING...")
-    prediction = teachable_machine_classification(image, "/app/joramjeffersonmulamba/keras_model3.h5")
-    model3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if prediction == 0:
-        st.write("The scan is MALIGNANT")
-    elif label == 1:
-        st.write("The scan is BENIGN")
-    else:
-        st.write("UNRECOGNISED(Consult with a Medical Doctor)")
-
-
-
 st.header("Breast Cancer Ultrasound Diagnosis")
 st.text("Upload a scan for Diagnosis")
-
-url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true"
-response = requests.get(url)
-with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-    tmp_file.write(response.content)
-    model = tf.keras.models.load_model(tmp_file.name)
-
-
-
-uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
-if uploaded_file1 is not None:
-    image = Image.open(uploaded_file1)
+uploaded_file = st.file_uploader("Choose a scan ...", type="png")
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
-    st.write("DIAGNOSING......")
-    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if prediction == 0:
-        st.write("The scan is NORMAL")
+    st.write("Classifying...")
+    label = teachable_machine_classification(image, 'model/keras_model.h5')
+    if label == 0:
+        st.write("The scan is normal")
     elif label == 1:
-        st.write("The scan is MALIGNANT")
+        st.write("The scan is malignant")
     else:
-        st.write("The scan is BENIGN")
+        st.write("The scan is benign")
 
-
-st.header("Breast Cancer Histopathology Image Diagnosis")
-st.text("Upload a scan for Diagnosis")
-url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
-response = requests.get(url)
-with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-    tmp_file.write(response.content)
-    model3 = tf.keras.models.load_model(tmp_file.name)
-
-
-
-uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
-if uploaded_file2 is not None:
-    image = Image.open(uploaded_file2)
-    st.image(image, caption='Uploaded Scan.', use_column_width=True)
-    st.write("")
-    st.write("DIAGNOSING...")
-    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
-    model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if prediction == 0:
-        st.write("The scan is MALIGNANT")
-    elif label == 1:
-        st.write("The scan is BENIGN")
-    else:
-        st.write("UNRECOGNISED(Consult with a Medical Doctor)")
        
 
             
