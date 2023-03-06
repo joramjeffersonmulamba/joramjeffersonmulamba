@@ -13,5 +13,4 @@ tensorflow
 toml
 transformers==4.26.1
 typing-extensions
-teachable_machine_classification
 random
