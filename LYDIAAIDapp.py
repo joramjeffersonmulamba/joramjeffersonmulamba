@@ -3,11 +3,6 @@ import pandas as pd
 import numpy as np
 import pickle
 import tensorflow as tf
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
 from PIL import Image, ImageOps
 from img_classification import teachable_machine_classification
 import joblib
@@ -340,3 +335,7 @@ st.write("LYDIAbot:", get_response(user_input))
 st.header("Additional Information")
 st.write("Breast cancer is the second most common cancer in women worldwide, and the most common cancer in women in developed countries. Early detection and treatment can greatly improve the chances of survival. This AI diagnostic tool is intended to be used for informational purposes only and should not replace the advice of a medical professional. Please consult your doctor if you have any concerns about your breast health.")
 st.write('App created by Mulamba Joram Jefferson(jeffersonjoram@gmail.com)')
+
+
+copy right to Mulamba Joram Jefferson
+for any work written based on this reference the source in the work
