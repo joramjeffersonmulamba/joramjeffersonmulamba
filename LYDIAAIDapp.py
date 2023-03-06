@@ -218,7 +218,7 @@ if uploaded_file is not None:
     st.image(image, caption='Uploaded Image.', use_column_width=True)
     st.write("")
     st.write("Classifying...")
-    label = teachable_machine_classification(uploaded_file, 'https://github.com/<username>/<repository>/blob/<branch>/<path_to_weights_file>.h5?raw=true')
+    label = teachable_machine_classification(uploaded_file, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true')
     if label == 0:
         st.write("Prediction: Class A")
     elif label == 1:
