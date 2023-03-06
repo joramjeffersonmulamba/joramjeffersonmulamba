@@ -321,5 +321,9 @@ with st.expander("Feedback"):
 with st.expander("Support"):
     st.write("If you need help, please contact us at jeffersonjoram@gmail.com.")
 
+# Add some additional information
+st.header("Additional Information")
+st.write("Breast cancer is the second most common cancer in women worldwide, and the most common cancer in women in developed countries. Early detection and treatment can greatly improve the chances of survival. This AI diagnostic tool is intended to be used for informational purposes only and should not replace the advice of a medical professional. Please consult your doctor if you have any concerns about your breast health.")
+st.write('App created by Mulamba Joram Jefferson(jeffersonjoram@gmail.com)')
 
 
