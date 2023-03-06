@@ -9,12 +9,40 @@ import keras
 from PIL import Image, ImageOps
 import numpy as np
 
+def teachable_machine_classification(img, weights_file):
+    # Load the model
+    model = keras.models.load_model(weights_file)
 
+    # Create the array of the right shape to feed into the keras model
+    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+    image = img
+    #image sizing
+    size = (224, 224)
+    image = ImageOps.fit(image, size, Image.ANTIALIAS)
+
+    #turn the image into a numpy array
+    image_array = np.asarray(image)
+    # Normalize the image
+    normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
+
+    # Ensure that the image has 3 channels (if not grayscale)
+    if len(normalized_image_array.shape) == 2:
+        normalized_image_array = np.stack(
+            [normalized_image_array] * 3, axis=-1)
+    elif normalized_image_array.shape[-1] == 4:
+        normalized_image_array = normalized_image_array[:, :, :3]
+
+    # Load the image into the array
+    data[0] = normalized_image_array
+
+    # run the inference
+    prediction = model.predict(data)
+    return np.argmax(prediction) # return position of the highest probability
 
 
 
 # Load the data
-data = pd.read_csv(r"C:\Users\jeffe\OneDrive\Desktop\MOM\data.csv")
+data = pd.read_csv("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/data.csv")
 
 # Define the app title
 title_text = "<span style='color: hotpink; font-size: 70px;'>L<span style='color: white; background-color: hotpink; border-radius: 5px; padding: 0px 5px;'>AID</span></span>"
@@ -199,7 +227,7 @@ if uploaded_file is not None:
 
 st.header("Breast Cancer Mammogram Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model3 = tf.keras.models.load_model(r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model3.h5")
+model3 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5")
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
 if uploaded_file3 is not None:
@@ -207,7 +235,7 @@ if uploaded_file3 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model3.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5")
     model3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is MALIGNANT")
@@ -220,7 +248,7 @@ if uploaded_file3 is not None:
 
 st.header("Breast Cancer Ultrasound Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model = tf.keras.models.load_model(r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model.h5")
+model = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5")
 
 uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
 if uploaded_file1 is not None:
@@ -228,7 +256,7 @@ if uploaded_file1 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING......")
-    label = teachable_machine_classification(image, r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5")
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is NORMAL")
@@ -240,7 +268,7 @@ if uploaded_file1 is not None:
 
 st.header("Breast Cancer Histopathology Image Diagnosis")
 st.text("Upload a scan for Diagnosis")
-model2 = tf.keras.models.load_model(r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model2.h5")
+model2 = tf.keras.models.load_model("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5")
 
 uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
 if uploaded_file2 is not None:
@@ -248,7 +276,7 @@ if uploaded_file2 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, r"C:\Users\jeffe\OneDrive\Desktop\MOM\keras_model2.h5")
+    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5")
     model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if label == 0:
         st.write("The scan is MALIGNANT")
@@ -272,65 +300,3 @@ with st.expander("Support"):
 
 
 
-import random
-import uuid
-
-
-# Define the responses for each question
-responses = {
-    "greeting": ["Hello!", "Hi there!", "Hey!"],
-    "help": ["How can I help you?", "What do you need help with?"],
-    "breast_cancer": ["Breast cancer is a type of cancer that starts in the breast tissue.", "Breast cancer is a disease in which malignant (cancer) cells form in the tissues of the breast."],
-    "risk_factors": ["Women over the age of 50 are at higher risk of breast cancer.", "Women who have a family history of breast cancer are at higher risk.", "Women who have certain gene mutations, such as BRCA1 or BRCA2, are at higher risk."],
-    "check": ["Breast self-exams and mammograms are two common ways to check for breast cancer."],
-    "prevent": ["Some ways to help prevent breast cancer include maintaining a healthy weight, exercising regularly, limiting alcohol consumption, and not smoking."],
-    "treatment": ["If you are diagnosed with breast cancer, your doctor will recommend a treatment plan based on your specific case. This may include surgery, radiation therapy, chemotherapy, or a combination of these treatments."],
-    "farewell": ["Goodbye!", "Take care!", "See you later!"]
-}
-
-# Define a function to generate a response to the user's input
-def get_response(user_input):
-    user_input = user_input.lower()
-
-    if "hello" in user_input or "hi" in user_input:
-        return random.choice(responses["greeting"])
-    
-    elif "help" in user_input or "what can you do" in user_input:
-        return random.choice(responses["help"])
-    
-    elif "breast cancer" in user_input or "what is breast cancer" in user_input:
-        return random.choice(responses["breast_cancer"])
-    
-    elif "at risk" in user_input or "who is at risk" in user_input:
-        return random.choice(responses["risk_factors"])
-    
-    elif "check" in user_input or "how to check" in user_input:
-        return random.choice(responses["check"])
-    
-    elif "prevent" in user_input or "how to prevent" in user_input:
-        return random.choice(responses["prevent"])
-    
-    elif "treatment" in user_input or "what to do if diagnosed" in user_input:
-        return random.choice(responses["treatment"])
-    
-    elif "bye" in user_input or "goodbye" in user_input:
-        return random.choice(responses["farewell"])
-    
-    else:
-        return "I'm sorry, I don't understand. Can you please rephrase your question?"
-
-# Define a function to handle the chat with the user
-st.header("Welcome to the Breast Cancer Chatbot!")
-st.write("Please enter your questions or type 'bye' to exit.")
-
-
-#
-user_input = st.text_input("You:")
-        
-st.write("LYDIAbot:", get_response(user_input))
-
-
-# Add some additional information
-st.header("Additional Information")
-st.write("Breast cancer is the second most common cancer in women worldwide, and the most common cancer in women in developed countries. Early detection and treatment can greatly improve the chances of survival. This AI diagnostic tool is intended to be used for informational purposes only and should not replace the advice of a medical professional. Please consult your doctor if you have any concerns about your breast health.")
-st.write('App created by Mulamba Joram Jefferson(jeffersonjoram@gmail.com)')
