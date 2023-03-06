@@ -14,7 +14,7 @@ import os
 import urllib.request
 
 @st.cache(allow_output_mutation=True)
-def teachable_machine_classification(img, weights_file):
+def teachable_machine_classification(img_path, weights_file):
     image = Image.open(image_path)
     # Load the model
     model_path = os.path.join(os.getcwd(), weights_file)
