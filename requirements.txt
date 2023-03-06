@@ -1,4 +1,4 @@
-python==3.9.2
+python==3.11
 pip==23.0.1
 awesome-streamlit==20200728.1
 google-auth==2.16.1
@@ -21,11 +21,8 @@ streamlit==1.19.0
 tensorboard==2.12.0
 tensorboard-data-server==0.7.0
 tensorboard-plugin-wit==1.8.1
-tensorflow==2.12.0rc0
-tensorflow-estimator==2.12.0rc0
-tensorflow-intel==2.12.0rc0
-tensorflow-io-gcs-filesystem==0.31.0
 tokenizers==0.13.2
+tensorflow==2.6.0
 toml==0.10.2
 transformers==4.26.1
 
