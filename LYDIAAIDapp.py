@@ -13,6 +13,7 @@ import tempfile
 import os
 import urllib.request
 
+@st.cache(allow_output_mutation=True)
 def teachable_machine_classification(img, weights_file):
     # Load the model
     model_path = os.path.join(os.getcwd(), weights_file)
@@ -242,7 +243,7 @@ urllib.request.urlretrieve(url, "keras_model3.h5")
 
 
 
-uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
+uploaded_file3 = st.file_uploader("Choose a scan ...", type=["png", "jpeg", "jpg"] key="file3")
 if uploaded_file3 is not None:
     image = Image.open(uploaded_file3)
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
