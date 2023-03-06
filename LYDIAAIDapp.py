@@ -15,15 +15,22 @@ import os
 import urllib.request
 import h5py
 
-def teachable_machine_classification(img, weights_file):
+# Download the model weights file
+    weights_file = 'model.h5'
+    urllib.request.urlretrieve(weights_url, weights_file)
+    
+    # Load the model
     model = keras.models.load_model(weights_file)
-    image = Image.open(img)
-    image = np.array(image.resize((224, 224)))
-    image = np.expand_dims(image, axis=0)
-    image = image/255.0
-    predictions = model.predict(image)
-    return predictions
 
+    # Preprocess the image
+    img = img_to_array(img)
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
+
+    # Make predictions
+    predictions = model.predict(img)
+    label = np.argmax(predictions, axis=1)[0]
+    return label
 
 
 
