@@ -5,6 +5,7 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import matplotlib.pyplot as plt
 import keras
+from keras.preprocessing.image import img_to_array
 from PIL import Image, ImageOps
 import numpy as np
 import requests
