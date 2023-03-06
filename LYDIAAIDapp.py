@@ -15,30 +15,15 @@ import os
 import urllib.request
 import h5py
 
-
 def teachable_machine_classification(img, weights_file):
-    # Load the model
-    weights_file = "/app/joramjeffersonmulamba/keras_model3.h5"
-    urllib.request.urlretrieve(weights_url, weights_file)
+    model = keras.models.load_model(weights_file)
+    image = Image.open(img)
+    image = np.array(image.resize((224, 224)))
+    image = np.expand_dims(image, axis=0)
+    image = image/255.0
+    predictions = model.predict(image)
+    return predictions
 
-    # Create the array of the right shape to feed into the keras model
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-    image = img
-    #image sizing
-    size = (224, 224)
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
-
-    #turn the image into a numpy array
-    image_array = np.asarray(image)
-    # Normalize the image
-    normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
-
-    # Load the image into the array
-    data[0] = normalized_image_array
-
-    # run the inference
-    prediction = model.predict(data)
-    return np.argmax(prediction) # return position of the highest probability
 
 
 
@@ -225,23 +210,22 @@ if uploaded_file is not None:
 
 
 
-st.header("Breast Cancer Ultrasound Diagnosis")
-st.text("Upload a scan for Diagnosis")
-uploaded_file = st.file_uploader("Choose a scan ...", type="png")
+st.title("Teachable Machine Image Classification")
+st.markdown("Upload an image to classify the image")
+uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Scan.', use_column_width=True)
+    st.image(image, caption='Uploaded Image.', use_column_width=True)
     st.write("")
     st.write("Classifying...")
-    label = teachable_machine_classification(image, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true')
+    label = teachable_machine_classification(uploaded_file, 'https://github.com/<username>/<repository>/blob/<branch>/<path_to_weights_file>.h5?raw=true')
     if label == 0:
-        st.write("The scan is normal")
+        st.write("Prediction: Class A")
     elif label == 1:
-        st.write("The scan is malignant")
+        st.write("Prediction: Class B")
     else:
-        st.write("The scan is benign")
+        st.write("Prediction: Class C")
 
-       
 
             
 # Define the feedback and support expanders
