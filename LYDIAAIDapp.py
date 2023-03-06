@@ -263,7 +263,7 @@ if uploaded_file1 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING......")
-    label = teachable_machine_classification(uploaded_file1, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true)
+    label = teachable_machine_classification(uploaded_file1, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true')
     if label == 0:
         st.write("The scan is NORMAL")
     elif label == 1:
