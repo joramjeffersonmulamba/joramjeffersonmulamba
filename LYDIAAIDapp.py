@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 from PIL import Image, ImageOps
-from img_classification import teachable_machine_classification
 import matplotlib.pyplot as plt
 import keras
 from PIL import Image, ImageOps
@@ -15,12 +14,13 @@ import os
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
-    model = keras.models.load_model(weights_file)
+    model_path = os.path.join(os.getcwd(), weights_file)
+    model = keras.models.load_model(model_path)
     img = keras.preprocessing.image.img_to_array(image)
     img = tf.keras.preprocessing.image.smart_resize(img, (224, 224))
     img = tf.reshape(img, (-1, 224, 224, 3))
     img /= 255.0
-
+    
     # Create the array of the right shape to feed into the keras model
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     image = img
@@ -250,9 +250,9 @@ if uploaded_file3 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
+    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
     model3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if label == 0:
+    if prediction == 0:
         st.write("The scan is MALIGNANT")
     elif label == 1:
         st.write("The scan is BENIGN")
@@ -278,9 +278,9 @@ if uploaded_file1 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING......")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
+    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true")
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if label == 0:
+    if prediction == 0:
         st.write("The scan is NORMAL")
     elif label == 1:
         st.write("The scan is MALIGNANT")
@@ -304,9 +304,9 @@ if uploaded_file2 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
+    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true")
     model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    if label == 0:
+    if prediction == 0:
         st.write("The scan is MALIGNANT")
     elif label == 1:
         st.write("The scan is BENIGN")
@@ -331,4 +331,6 @@ st.header("Additional Information")
 st.write("Breast cancer is the second most common cancer in women worldwide, and the most common cancer in women in developed countries. Early detection and treatment can greatly improve the chances of survival. This AI diagnostic tool is intended to be used for informational purposes only and should not replace the advice of a medical professional. Please consult your doctor if you have any concerns about your breast health.")
 st.write('App created by Mulamba Joram Jefferson(jeffersonjoram@gmail.com)')
 
+st.markdown("""---
+By Joram Jefferson Mulamba with ❤️""")
 
