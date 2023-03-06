@@ -274,13 +274,13 @@ if uploaded_file1 is not None:
 
 st.header("Breast Cancer Histopathology Image Diagnosis")
 st.text("Upload a scan for Diagnosis")
-uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file2")
+uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
 if uploaded_file2 is not None:
     image = Image.open(uploaded_file2)
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    label = teachable_machine_classification(uploaded_file3, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true')
+    label = teachable_machine_classification(uploaded_file2, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true')
     if label == 0:
         st.write("The scan is MALIGNANT")
     elif label == 1:
