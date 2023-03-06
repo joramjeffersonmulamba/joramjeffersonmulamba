@@ -9,6 +9,7 @@ import keras
 from PIL import Image, ImageOps
 import numpy as np
 import requests
+import io
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
@@ -230,8 +231,11 @@ st.header("Breast Cancer Mammogram Diagnosis")
 st.text("Upload a scan for Diagnosis")
 
 url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true"
-file_content = requests.get(url).content
-model3 = tf.keras.models.load_model(io.BytesIO(file_content))
+response = requests.get(url)
+with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+    tmp_file.write(response.content)
+    model3 = tf.keras.models.load_model(tmp_file.name)
+
 
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
@@ -255,8 +259,11 @@ st.header("Breast Cancer Ultrasound Diagnosis")
 st.text("Upload a scan for Diagnosis")
 
 url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true"
-file_content1 = requests.get(url).content
-model = tf.keras.models.load_model(io.BytesIO(file_content1))
+response = requests.get(url)
+with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+    tmp_file.write(response.content)
+    model = tf.keras.models.load_model(tmp_file.name)
+
 
 
 uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
@@ -278,8 +285,11 @@ if uploaded_file1 is not None:
 st.header("Breast Cancer Histopathology Image Diagnosis")
 st.text("Upload a scan for Diagnosis")
 url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
-file_content2 = requests.get(url).content
-model2 = tf.keras.models.load_model(io.BytesIO(file_content2))
+response = requests.get(url)
+with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+    tmp_file.write(response.content)
+    model3 = tf.keras.models.load_model(tmp_file.name)
+
 
 
 uploaded_file2 = st.file_uploader("Choose a scan ...", type="png", key="file2")
