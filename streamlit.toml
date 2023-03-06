@@ -1,0 +1,8 @@
+[general]
+email = "jeffersonjoram@gmail.com"
+username = "jeffersonjora@gmail.com"
+
+[server]
+headless = true
+enableCORS=false
+port = $PORT

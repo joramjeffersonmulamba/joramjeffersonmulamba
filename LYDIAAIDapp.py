@@ -1,17 +1,14 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
 import tensorflow as tf
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
 from PIL import Image, ImageOps
 from img_classification import teachable_machine_classification
-import joblib
 import matplotlib.pyplot as plt
+import keras
+from PIL import Image, ImageOps
+import numpy as np
+
 
 
 
@@ -275,9 +272,6 @@ with st.expander("Support"):
 
 
 
-
-
-
 import random
 import uuid
 
@@ -330,7 +324,7 @@ st.header("Welcome to the Breast Cancer Chatbot!")
 st.write("Please enter your questions or type 'bye' to exit.")
 
 
-
+#
 user_input = st.text_input("You:")
         
 st.write("LYDIAbot:", get_response(user_input))

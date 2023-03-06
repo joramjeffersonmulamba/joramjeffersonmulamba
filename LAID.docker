@@ -1,0 +1,20 @@
+# Base image
+FROM python:3.11
+
+# Set working directory
+C:\Users\jeffe\OneDrive\Desktop\MOM
+
+# Copy requirements.txt file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Copy all the files to the container
+COPY . .
+
+# Expose port 8501
+EXPOSE 8501
+
+# Run the app
+CMD ["streamlit", "run", "C:\Users\jeffe\OneDrive\Desktop\MOM\LYDIAAIDapp.py"]
