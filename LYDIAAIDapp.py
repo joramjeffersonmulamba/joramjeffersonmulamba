@@ -248,7 +248,7 @@ if uploaded_file3 is not None:
     st.image(image, caption='Uploaded Scan.', use_column_width=True)
     st.write("")
     st.write("DIAGNOSING...")
-    prediction = teachable_machine_classification(image, "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true")
+    prediction = teachable_machine_classification(image, "/app/joramjeffersonmulamba/keras_model3.h5")
     model3.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     if prediction == 0:
         st.write("The scan is MALIGNANT")
