@@ -11,10 +11,15 @@ import numpy as np
 import requests
 import io
 import tempfile
+import os
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
     model = keras.models.load_model(weights_file)
+    img = keras.preprocessing.image.img_to_array(image)
+    img = tf.keras.preprocessing.image.smart_resize(img, (224, 224))
+    img = tf.reshape(img, (-1, 224, 224, 3))
+    img /= 255.0
 
     # Create the array of the right shape to feed into the keras model
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
