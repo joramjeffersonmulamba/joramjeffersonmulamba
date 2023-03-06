@@ -239,14 +239,14 @@ if uploaded_file is not None:
 
 
 
-st.title("Teachable Machine Image Classification")
-st.markdown("Upload an image to classify the image")
+st.header("Breast Cancer Ultrasound Diagnosis")
+st.text("Upload a scan for Diagnosis")
 uploaded_file = st.file_uploader("Choose an image...", type="png", key="file")
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption='Uploaded Image.', use_column_width=True)
     st.write("")
-    st.write("Classifying...")
+    st.write("DIAGNOSING......")
     label = teachable_machine_classification(uploaded_file, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true')
     if label == 0:
         st.write("The scan is MALIGNANT")
