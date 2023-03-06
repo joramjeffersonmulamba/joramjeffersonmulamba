@@ -241,7 +241,7 @@ if uploaded_file is not None:
 
 st.title("Teachable Machine Image Classification")
 st.markdown("Upload an image to classify the image")
-uploaded_file = st.file_uploader("Choose an image...", type="png")
+uploaded_file = st.file_uploader("Choose an image...", type="png", key="file")
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption='Uploaded Image.', use_column_width=True)
@@ -255,6 +255,38 @@ if uploaded_file is not None:
     else:
         st.write("UNRECOGNISED(Consult with a Medical Doctor)")
 
+st.header("Breast Cancer Ultrasound Diagnosis")
+st.text("Upload a scan for Diagnosis")
+uploaded_file1 = st.file_uploader("Choose a scan ...", type="png", key="file1")
+if uploaded_file1 is not None:
+    image = Image.open(uploaded_file1)
+    st.image(image, caption='Uploaded Scan.', use_column_width=True)
+    st.write("")
+    st.write("DIAGNOSING......")
+    label = teachable_machine_classification(uploaded_file1, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model.h5?raw=true)
+    if label == 0:
+        st.write("The scan is NORMAL")
+    elif label == 1:
+        st.write("The scan is MALIGNANT")
+    else:
+        st.write("The scan is BENIGN")
+
+
+st.header("Breast Cancer Histopathology Image Diagnosis")
+st.text("Upload a scan for Diagnosis")
+uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file2")
+if uploaded_file2 is not None:
+    image = Image.open(uploaded_file2)
+    st.image(image, caption='Uploaded Scan.', use_column_width=True)
+    st.write("")
+    st.write("DIAGNOSING...")
+    label = teachable_machine_classification(uploaded_file3, 'https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true')
+    if label == 0:
+        st.write("The scan is MALIGNANT")
+    elif label == 1:
+        st.write("The scan is BENIGN")
+    else:
+        st.write("UNRECOGNISED(Consult with a Medical Doctor)")
 
             
 # Define the feedback and support expanders
