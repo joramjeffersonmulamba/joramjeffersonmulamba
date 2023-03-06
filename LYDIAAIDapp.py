@@ -18,7 +18,7 @@ import h5py
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
-    weights_file = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
+    weights_url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model2.h5?raw=true"
     urllib.request.urlretrieve(weights_url, weights_file)
 
     # Create the array of the right shape to feed into the keras model
