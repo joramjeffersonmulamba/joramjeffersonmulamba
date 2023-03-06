@@ -14,18 +14,21 @@ from io import BytesIO
 import tempfile
 import os
 import urllib.request
-import h5py
 
+
+@st.cache(show_spinner=False)
 def teachable_machine_classification(file, weights_url):
     # Download and save the model weights
     weights_file = 'keras_model.h5'
-    urllib.request.urlretrieve(weights_url, weights_file)
+    r = requests.get(weights_url)
+    with open(weights_file, 'wb') as f:
+        f.write(r.content)
 
     # Load the model
     model = keras.models.load_model(weights_file)
 
     # Load the image from the UploadedFile object
-    img = load_img(file, target_size=(224, 224))
+    img = Image.open(file).convert('RGB')
 
     # Convert the image to a Numpy array
     img_array = img_to_array(img)
@@ -43,7 +46,6 @@ def teachable_machine_classification(file, weights_url):
     label = np.argmax(predictions)
 
     return label
-
 
 # Load the data
 data = pd.read_csv("https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/data.csv?raw=true")
