@@ -241,7 +241,7 @@ st.text("Upload a scan for Diagnosis")
 
 url = "https://github.com/joramjeffersonmulamba/joramjeffersonmulamba/blob/master/keras_model3.h5?raw=true"
 urllib.request.urlretrieve(url, "keras_model3.h5")
-
+image_path = "/app/joramjeffersonmulamba/keras_model3.h5"
 
 
 uploaded_file3 = st.file_uploader("Choose a scan ...", type="png", key="file3")
