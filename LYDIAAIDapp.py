@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import keras
 from PIL import Image, ImageOps
 import numpy as np
+import requests
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
